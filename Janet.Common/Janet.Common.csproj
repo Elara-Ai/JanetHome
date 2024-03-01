@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+        <Authors>Arthur Frey</Authors>
+        <Title>Janet.Common</Title>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Update="secret.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+</Project>
