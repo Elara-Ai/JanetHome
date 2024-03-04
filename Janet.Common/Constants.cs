@@ -23,6 +23,8 @@ public static class Constants
         public static readonly string JanetCommonPath = Path.Combine(Solution, JanetCommon);
         public static readonly  string JanetCorePath = Path.Combine(Solution, JanetCore);
         public static readonly  string JanetConsolePath = Path.Combine(Solution, JanetConsole);
+        
+        public static string SqlScripts = Path.Combine(JanetCorePath, "SqlScripts");
     }
 
     public static class Files
@@ -34,7 +36,7 @@ public static class Constants
     
     public static class Data
     {
-        public static readonly string DataConnection = $"Data Source={Files.Database}";
+        public static readonly string DataConnection = $"Data Source={Constants.Files.Database};Version=3;";
     }
     
 }

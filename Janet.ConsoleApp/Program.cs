@@ -1,20 +1,28 @@
 ﻿using Azure;
 using Azure.AI.OpenAI;
 using Janet.Common;
+using Janet.Core;
 using Janet.Core.Models;
-using static System.Environment;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
-var secrets = new Secrets();
 var user = new UserProfile()
 {
     Username = "Arthur",
     Nickname = "Arthur"
 };
 
-string endpoint = secrets.GetSecret(Secrets.GoogleSecretsKeys.azure_endpoint);
-string key = secrets.GetSecret(Secrets.GoogleSecretsKeys.azure_key);
+var builder = Host.CreateDefaultBuilder(args)
+    .ConfigureServices((p_context, p_services) =>
+    {
+        p_services.AddSingleton<IJanet, Janet.Core.Janet>();
+    });
 
-OpenAIClient client = new(new Uri(endpoint), new AzureKeyCredential(key));
+using var host = builder.Build();
+
+var janet = host.Services.GetRequiredService<IJanet>();
+
+var client = janet.GetClient();
 
 var conversation = new List<ChatRequestMessage>
 {
@@ -35,10 +43,6 @@ foreach (var message in conversation)
 
 Response<ChatCompletions> response = client.GetChatCompletions(chat);
 Console.WriteLine(response.Value.Choices[0].Message.Content);
-
-
-
-
 
 while (true)
 {
